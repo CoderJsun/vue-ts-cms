@@ -4,7 +4,10 @@ module.exports = {
       alias: {
         components: '@/components',
         assets: '@/assets',
-        pages: '@/pages'
+        pages: '@/pages',
+        router: '@/router',
+        services: '@/services',
+        store: '@/store'
       }
     }
   }
