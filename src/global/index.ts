@@ -1,7 +1,7 @@
 import { App } from 'vue'
-import { ElButton } from 'element-plus'
+import { ElButton, ElInput } from 'element-plus'
 
-const els = [ElButton]
+const els = [ElButton, ElInput]
 
 /**
  * @param app 注册 element-plus
