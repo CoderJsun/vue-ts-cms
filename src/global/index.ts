@@ -6,8 +6,8 @@ const els = [ElButton]
 /**
  * @param app 注册 element-plus
  */
-export function registerElment(app: App): void {
+export function registerElementPlus(app: App): void {
   els.map((el) => {
-    app.use(el)
+    app.component(el.name, el)
   })
 }

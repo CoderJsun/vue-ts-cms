@@ -6,7 +6,7 @@ module.exports = {
         assets: '@/assets',
         pages: '@/pages',
         router: '@/router',
-        services: '@/services',
+        service: '@/service',
         store: '@/store'
       }
     }
