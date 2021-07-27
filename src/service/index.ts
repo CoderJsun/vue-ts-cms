@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
-class Request {
+class CMSRequest {
   private instance: AxiosInstance
   private readonly options: AxiosRequestConfig
 
@@ -57,4 +57,4 @@ class Request {
   }
 }
 
-export default new Request()
+export default CMSRequest
