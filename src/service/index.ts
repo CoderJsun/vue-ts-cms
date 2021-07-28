@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 class CMSRequest {
   private instance: AxiosInstance
@@ -27,12 +27,12 @@ class CMSRequest {
     )
   }
 
-  request(config: AxiosRequestConfig): Promise {
+  request<T = any>(config: AxiosRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       this.instance
-        .request(config)
+        .request<any, AxiosResponse>(config)
         .then((res) => {
-          resolve(res)
+          resolve(res as unknown as Promise<T>)
         })
         .catch((err) => {
           reject(err)

@@ -17,21 +17,29 @@
       show-password="false"
     >
     </el-input>
-    <el-button class="setup">Login</el-button>
+    <el-button class="setup" @click="login">Login</el-button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'Login',
   setup() {
     const tel = ref('')
     const psw = ref('')
+
+    const router = useRouter()
+
+    const login = () => {
+      router.replace('/home')
+    }
     return {
       tel,
-      psw
+      psw,
+      login
     }
   }
 })
