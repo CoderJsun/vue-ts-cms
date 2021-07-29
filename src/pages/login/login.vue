@@ -14,7 +14,6 @@
       clearable
       class="el-item"
       maxlength="26"
-      show-password="false"
     >
     </el-input>
     <el-button class="setup" @click="login">Login</el-button>

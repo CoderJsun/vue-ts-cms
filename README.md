@@ -6,20 +6,21 @@
 
 ### 1.1.目录
 
-| 目录       | 作用                                  |
-| ---------- | ------------------------------------- |
-| assets     | 项目资源文件，包括 css、img           |
-| components | 抽取的组件                            |
-| pages      | 所有项目相关页面                      |
-|            | home: 首页                            |
-|            | login: 登录页面                       |
-| router     | 路由文件                              |
-| service   | 对 axiso 进行过二次封装的网络请求文件 |
-| store      | Vuex 文件，集中存放数据文件           |
-| .env      | 环境变量，会被自动注入，主要配置三个环境中的 BASR_URL           |
-|   .env.development      | 开发环境           |
-|   .env.production      | 生产环境           |
-|   .env.test      | 测试环境          |
+| 目录             | 作用                                                  |
+| ---------------- | ----------------------------------------------------- |
+| assets           | 项目资源文件，包括 css、img                           |
+| components       | 抽取的组件                                            |
+| pages            | 所有项目相关页面                                      |
+|                  | home: 首页                                            |
+|                  | login: 登录页面                                       |
+| router           | 路由文件                                              |
+| service          | 对 axiso 进行过二次封装的网络请求文件                 |
+| store            | Vuex 文件，集中存放数据文件                           |
+| .env             | 环境变量，会被自动注入，主要配置三个环境中的 BASR_URL |
+| .env.development | 开发环境                                              |
+| .env.production  | 生产环境                                              |
+| .env.test        | 测试环境                                              |
+
 ### 1.2.使用
 
 下载项目文件
