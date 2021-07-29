@@ -39,7 +39,7 @@ class InstallRequest {
   request<T>(config: InstallRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       this.instance
-        .request(config)
+        .request<T>(config)
         .then((res) => {
           resolve(res as unknown as any)
         })
@@ -50,17 +50,17 @@ class InstallRequest {
   }
 
   get<T>(config: InstallRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'GET' })
+    return this.request<T>({ ...config, method: 'GET' })
   }
   post<T>(config: InstallRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'POST' })
+    return this.request<T>({ ...config, method: 'POST' })
   }
   delete<T>(config: InstallRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'DELETE' })
+    return this.request<T>({ ...config, method: 'DELETE' })
   }
 
   patch<T>(config: InstallRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'PATCH' })
+    return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
 
