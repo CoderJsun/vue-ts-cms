@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { AxiosInstance } from 'axios'
 import { InstallRequestInterceptors, InstallRequestConfig } from './type'
 
 class InstallRequest {
@@ -36,7 +36,7 @@ class InstallRequest {
     )
   }
 
-  request<T>(config: AxiosRequestConfig): Promise<T> {
+  request<T>(config: InstallRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       this.instance
         .request(config)
@@ -49,18 +49,19 @@ class InstallRequest {
     })
   }
 
-  get<T>(config: AxiosRequestConfig): Promise<T> {
+  get<T>(config: InstallRequestConfig): Promise<T> {
     return this.request({ ...config, method: 'GET' })
   }
-  post<T>(config: AxiosRequestConfig): Promise<T> {
+  post<T>(config: InstallRequestConfig): Promise<T> {
     return this.request({ ...config, method: 'POST' })
   }
-  delete<T>(config: AxiosRequestConfig): Promise<T> {
+  delete<T>(config: InstallRequestConfig): Promise<T> {
     return this.request({ ...config, method: 'DELETE' })
   }
-  patch<T>(config: AxiosRequestConfig): Promise<T> {
+
+  patch<T>(config: InstallRequestConfig): Promise<T> {
     return this.request({ ...config, method: 'PATCH' })
   }
 }
 
-export default InstallRequest
+export { InstallRequest }

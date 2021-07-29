@@ -23,6 +23,11 @@
 
 ### 1.2.使用
 
+注意点：
+
+* 建议在项目中创建 .env.development |  .env.production | .env.production  三个环境文件，配置不同环境主机地址，运行时会自动捕获
+  
+
 下载项目文件
 
 ```json

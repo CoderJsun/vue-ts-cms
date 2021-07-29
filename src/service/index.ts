@@ -1,4 +1,4 @@
-import InstallRequest from './request'
+import { InstallRequest } from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
 
 const request = new InstallRequest({
