@@ -1,8 +1,8 @@
 <template>
   <div class="login-phone">
-    <el-form :rules="rules" :model="phone">
+    <el-form :rules="rules" :model="phone" ref="phoneRef">
       <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="phone.mobile"></el-input>
+        <el-input v-model="phone.mobile" maxlength="11"></el-input>
       </el-form-item>
       <el-form-item label="验证码" prop="code">
         <div class="CoderWrapper">
@@ -15,21 +15,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { ElForm } from 'element-plus'
+import { defineComponent, ref } from 'vue'
 import { phone, rules } from './config/phone-config'
 
 export default defineComponent({
   name: 'LoginPhone',
   setup() {
+    const phoneRef = ref<InstanceType<typeof ElForm>>()
+
+    const MobileLoginAction = () => {
+      phoneRef.value?.validate((validate) => {
+        console.log(validate, '手机号-loginAction 登录~')
+      })
+    }
     return {
       phone,
-      rules
+      rules,
+      MobileLoginAction,
+      phoneRef
     }
   }
 })
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .CoderWrapper {
   display: flex;
   justify-content: space-between;

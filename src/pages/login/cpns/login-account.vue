@@ -1,6 +1,6 @@
 <template>
   <div class="login-account">
-    <el-form :rules="rules" :model="account">
+    <el-form :rules="rules" :model="account" ref="formRef">
       <el-form-item label="账号" prop="name">
         <el-input v-model="account.name"></el-input>
       </el-form-item>
@@ -12,18 +12,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { ElForm } from 'element-plus'
+import { defineComponent, ref } from 'vue'
 import { account, rules } from './config/account-config'
 
 export default defineComponent({
   name: 'LoginAccount',
   setup() {
+    const formRef = ref<InstanceType<typeof ElForm>>()
+
+    const AccountLoginAction = () => {
+      formRef.value?.validate((validate) => {
+        console.log(validate, '账号-LoginAccount 登录~')
+      })
+    }
+
     return {
       account,
-      rules
+      rules,
+      AccountLoginAction,
+      formRef
     }
   }
 })
 </script>
 
-<style lang="less"></style>
+<style lang="less" scoped></style>
