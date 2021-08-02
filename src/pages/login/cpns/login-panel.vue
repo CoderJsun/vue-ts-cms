@@ -1,6 +1,6 @@
 <template>
   <div class="login-panel">
-    <h1 class="login-title">管理系统</h1>
+    <h1 class="login-title">全媒体内容管理系统</h1>
     <el-tabs type="border-card" stretch ref="ElTabRef">
       <el-tab-pane>
         <template #label>
