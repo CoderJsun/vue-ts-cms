@@ -10,6 +10,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
-@import 'assets/css/base.css';
-</style>
+<style lang="less"></style>

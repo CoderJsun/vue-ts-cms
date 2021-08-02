@@ -1,62 +1,26 @@
 <template>
   <div class="login">
-    <el-input
-      placeholder="手机号"
-      v-model="tel"
-      clearable
-      class="el-item"
-      maxlength="11"
-    >
-    </el-input>
-    <el-input
-      placeholder="密码"
-      v-model="psw"
-      clearable
-      class="el-item"
-      maxlength="26"
-    >
-    </el-input>
-    <el-button class="setup" @click="login">Login</el-button>
+    <login-panel></login-panel>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
-
+import { defineComponent } from 'vue'
+import LoginPanel from './cpns/login-panel.vue'
 export default defineComponent({
   name: 'Login',
-  setup() {
-    const tel = ref('')
-    const psw = ref('')
-
-    const router = useRouter()
-
-    const login = () => {
-      router.replace('/home')
-    }
-    return {
-      tel,
-      psw,
-      login
-    }
+  components: {
+    LoginPanel
   }
 })
 </script>
 
 <style lang="less">
 .login {
-  width: 30%;
-  margin: 0 auto;
-  border: 1px solid rgba(102, 102, 102, 0.3);
-  border-radius: 10px;
-  padding: 10px;
-}
-.el-item {
-  margin-top: 10px;
-}
-.setup {
-  margin-top: 20px;
-  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 </style>

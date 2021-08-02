@@ -5,6 +5,8 @@ import store from './store'
 import { registerElementPlus } from './global'
 import 'element-plus/lib/theme-chalk/base.css'
 import skyrequest from './service'
+import 'normalize.css'
+import './assets/css/index.less'
 
 skyrequest
   .get({
