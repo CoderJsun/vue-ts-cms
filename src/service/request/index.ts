@@ -36,7 +36,7 @@ class InstallRequest {
     )
   }
 
-  private request<T>(config: InstallRequestConfig): Promise<T> {
+  private request<T>(config: InstallRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       this.instance
         .request<any, T>(config)
@@ -45,21 +45,24 @@ class InstallRequest {
         })
         .catch((err) => {
           reject(err)
+          return err
         })
     })
   }
 
-  get<T>(config: InstallRequestConfig): Promise<T> {
+  get<T>(config: InstallRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T>(config: InstallRequestConfig): Promise<T> {
+
+  post<T>(config: InstallRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  delete<T>(config: InstallRequestConfig): Promise<T> {
+
+  delete<T>(config: InstallRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 
-  patch<T>(config: InstallRequestConfig): Promise<T> {
+  patch<T>(config: InstallRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }

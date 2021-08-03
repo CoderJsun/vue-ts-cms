@@ -1,13 +1,14 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 /**拦截器 */
-export interface InstallRequestInterceptors {
+export interface InstallRequestInterceptors<T = AxiosResponse> {
   reqestInterceptor?: (config: InstallRequestConfig) => InstallRequestConfig
   reqestInterceptorCatch?: (err: any) => any
-  responeInterceptor?: (res: AxiosResponse) => AxiosResponse
+  responeInterceptor?: (res: T) => T
   responeInterceptorCatch?: (err: any) => any
 }
 
-export interface InstallRequestConfig extends AxiosRequestConfig {
-  interceptors?: InstallRequestInterceptors
+export interface InstallRequestConfig<T = AxiosResponse>
+  extends AxiosRequestConfig {
+  interceptors?: InstallRequestInterceptors<T>
 }

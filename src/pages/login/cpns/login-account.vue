@@ -33,7 +33,7 @@ export default defineComponent({
             localCache.setCache('password', account.password)
           }
           // 触发登录
-          store.dispatch('login/AccountLoginAction', { ...account })
+          store.dispatch('login/accountLoginAction', { ...account })
         }
       })
     }

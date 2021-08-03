@@ -1,4 +1,4 @@
-import request from '../index'
+import instance from '../index'
 import { IAccount, IResult, ILoginResult } from './types'
 
 enum LoginApi {
@@ -9,20 +9,20 @@ enum LoginApi {
 
 // 账号登录
 export function accountLoginRequest(account: IAccount) {
-  return request.post<IResult<ILoginResult>>({
+  return instance.post<IResult<ILoginResult>>({
     url: LoginApi.login,
     data: account
   })
 }
 
 export function requestUserInfoById(id: number) {
-  return request.get<IResult>({
+  return instance.get<IResult>({
     url: LoginApi.userInfo + id
   })
 }
 
 export function requestUserMenusById(id: number) {
-  return request.get<IResult>({
+  return instance.get<IResult>({
     url: LoginApi.userMenus + id + '/menu'
   })
 }
