@@ -1,15 +1,15 @@
 import { createStore } from 'vuex'
+import login from './login/login'
+import { RootState } from './types'
 
-const store = createStore({
+const store = createStore<RootState>({
   state: () => {
-    return {
-      name: 'vue@next'
-    }
+    return {}
   },
   mutations: {},
   getters: {},
   actions: {},
-  modules: {}
+  modules: { login }
 })
 
 export default store

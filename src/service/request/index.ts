@@ -36,12 +36,12 @@ class InstallRequest {
     )
   }
 
-  request<T>(config: InstallRequestConfig): Promise<T> {
+  private request<T>(config: InstallRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       this.instance
-        .request<T>(config)
+        .request<any, T>(config)
         .then((res) => {
-          resolve(res as unknown as any)
+          resolve(res)
         })
         .catch((err) => {
           reject(err)

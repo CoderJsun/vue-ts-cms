@@ -7,4 +7,7 @@ import 'element-plus/lib/theme-chalk/base.css'
 import 'normalize.css'
 import './assets/css/index.less'
 
+// 同步本地数据
+store.dispatch('login/syncLocalCacheData')
+
 createApp(App).use(router).use(store).use(registerElementPlus).mount('#app')

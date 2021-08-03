@@ -5,7 +5,7 @@
         <el-input v-model="account.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password" type="password"></el-input>
+        <el-input v-model="account.password" show-password></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -15,15 +15,26 @@
 import { ElForm } from 'element-plus'
 import { defineComponent, ref } from 'vue'
 import { account, rules } from './config/account-config'
+import localCache from '../../../untils/cache'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'LoginAccount',
   setup() {
     const formRef = ref<InstanceType<typeof ElForm>>()
 
-    const AccountLoginAction = () => {
+    const store = useStore()
+
+    const AccountLoginAction = (isKeepAccount: boolean) => {
       formRef.value?.validate((validate) => {
-        console.log(validate, '账号-LoginAccount 登录~')
+        if (validate) {
+          if (isKeepAccount) {
+            localCache.setCache('name', account.name)
+            localCache.setCache('password', account.password)
+          }
+          // 触发登录
+          store.dispatch('login/AccountLoginAction', { ...account })
+        }
       })
     }
 

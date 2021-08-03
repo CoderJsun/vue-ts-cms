@@ -16,7 +16,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="account-control">
-      <el-checkbox>记住密码</el-checkbox>
+      <el-checkbox v-model="isKeepPassword">记住密码</el-checkbox>
       <el-link type="primary">忘记密码</el-link>
     </div>
     <el-button class="login-btn" type="primary" @click="handleLoginClick"
@@ -37,16 +37,19 @@ export default defineComponent({
     LoginPhone
   },
   setup() {
+    //记住密码
+    const isKeepPassword = ref(true)
     const ElTabRef = ref<InstanceType<typeof ElTabs>>()
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
     const mobileRef = ref<InstanceType<typeof LoginPhone>>()
-
+    // 登录逻辑
     const handleLoginClick = () => {
       ElTabRef.value?.currentName === '0'
-        ? accountRef.value?.AccountLoginAction()
+        ? accountRef.value?.AccountLoginAction(isKeepPassword.value)
         : mobileRef.value?.MobileLoginAction()
     }
     return {
+      isKeepPassword,
       ElTabRef,
       accountRef,
       mobileRef,

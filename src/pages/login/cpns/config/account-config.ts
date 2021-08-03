@@ -1,8 +1,8 @@
 import { reactive } from 'vue'
-
+import localCache from '../../../../untils/cache'
 export const account = reactive({
-  name: '',
-  password: ''
+  name: localCache.getCache('name') ?? '',
+  password: localCache.getCache('password') ?? ''
 })
 // 规则
 export const rules = {
