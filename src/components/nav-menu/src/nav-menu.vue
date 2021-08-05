@@ -1,8 +1,8 @@
 <template>
   <div class="nav-menu">
     <div class="logo">
-      <img class="logo-img" src="~assets/img/logo.png" alt="logo" />
-      <span class="title">vue3+ts</span>
+      <img class="img" src="~assets/img/logo.png" alt="logo" />
+      <span v-if="!isCollapse" class="title">vue3+ts</span>
     </div>
     <el-menu
       class="el-menu-vertical"
@@ -10,6 +10,7 @@
       text-color="#696969"
       active-text-color="#F5F5F5"
       default-active="2"
+      :collapse="isCollapse"
     >
       <template v-for="item in userMenus" :key="item.id">
         <template v-if="item.type === 1">
@@ -47,6 +48,12 @@ import { IStoreType } from '../../../store/types'
 
 export default defineComponent({
   name: 'NavMenu',
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     const store = useStore<IStoreType>()
     const userMenus = computed(() => store.state.login.userMenus)
@@ -62,20 +69,51 @@ export default defineComponent({
   background-color: rgb(40, 44, 52);
   color: #ffffff;
   height: 100%;
+  .el-menu {
+    border-right: none;
+  }
   .logo {
     display: flex;
-    justify-content: center;
+    height: 28px;
+    padding: 12px 10px 8px 10px;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px;
-    .logo-img {
-      width: 50px;
-      height: 50px;
+
+    .img {
+      height: 100%;
+      margin: 0 10px;
     }
+
     .title {
-      font-size: 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
     }
   }
-  .el-menu-vertical {
+
+  // 目录
+  .el-submenu {
+    background-color: #001529 !important;
+    // 二级菜单 ( 默认背景 )
+    .el-menu-item {
+      padding-left: 50px !important;
+      background-color: #0c2135 !important;
+    }
+  }
+
+  ::v-deep .el-submenu__title {
+    background-color: #001529 !important;
+  }
+
+  // hover 高亮
+  .el-menu-item:hover {
+    color: #fff !important; // 菜单
+  }
+
+  .el-menu-item.is-active {
+    color: #fff !important;
+    background-color: #0a60bd !important;
   }
 }
 </style>
