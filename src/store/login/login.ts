@@ -7,7 +7,7 @@ import {
   requestUserMenusById
 } from '../../service/login/login'
 import { IAccount } from '../../service/login/types'
-import localCache from '../../untils/cache'
+import { localCache } from 'ofi-hooks'
 import { TOKEN, USERINFO, USERMENUS } from './constant'
 import router from '../../router'
 

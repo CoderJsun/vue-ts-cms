@@ -15,7 +15,7 @@
 import { ElForm } from 'element-plus'
 import { defineComponent, ref } from 'vue'
 import { account, rules } from './config/account-config'
-import localCache from '../../../untils/cache'
+import { localCache } from 'ofi-hooks'
 import { useStore } from 'vuex'
 
 export default defineComponent({

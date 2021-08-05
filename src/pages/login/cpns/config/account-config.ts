@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import localCache from '../../../../untils/cache'
+import { localCache } from 'ofi-hooks'
 export const account = reactive({
   name: localCache.getCache('name') ?? '',
   password: localCache.getCache('password') ?? ''

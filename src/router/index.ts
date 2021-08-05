@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import localCache from '../untils/cache'
+import { localCache } from 'ofi-hooks'
 import { TOKEN } from '../store/login/constant'
 
 const routes: RouteRecordRaw[] = [
