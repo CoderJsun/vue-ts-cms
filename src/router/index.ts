@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import { localCache } from 'ofi-hooks'
+import { useLocalCache } from 'ofi-hooks'
 import { TOKEN } from '../store/login/constant'
 
 const routes: RouteRecordRaw[] = [
@@ -25,7 +25,7 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   if (to.path !== '/login') {
-    const token = localCache.getCache(TOKEN)
+    const token = useLocalCache.getCache(TOKEN)
     if (!token) {
       return '/login'
     }

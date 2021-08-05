@@ -7,7 +7,7 @@ import {
   requestUserMenusById
 } from '../../service/login/login'
 import { IAccount } from '../../service/login/types'
-import { localCache } from 'ofi-hooks'
+import { useLocalCache } from 'ofi-hooks'
 import { TOKEN, USERINFO, USERMENUS } from './constant'
 import router from '../../router'
 
@@ -39,17 +39,17 @@ const LoginModule: Module<ILoginState, IRootState> = {
       const LoginResult = await accountLoginRequest(payload)
       const { id, token } = LoginResult.data
       commit('changeToken', token)
-      localCache.setCache(TOKEN, token)
+      useLocalCache.setCache(TOKEN, token)
 
       // 用户详细信息
       const userInfoResult = await requestUserInfoById(id)
       commit('changeUserInfo', userInfoResult.data)
-      localCache.setCache(USERINFO, userInfoResult.data)
+      useLocalCache.setCache(USERINFO, userInfoResult.data)
 
       // 权限菜单
       const userMenus = await requestUserMenusById(userInfoResult.data.role.id)
       commit('changeUserMenus', userMenus.data)
-      localCache.setCache(USERMENUS, userMenus.data)
+      useLocalCache.setCache(USERMENUS, userMenus.data)
 
       // 跳转到首页
       router.replace('/home')
@@ -57,9 +57,9 @@ const LoginModule: Module<ILoginState, IRootState> = {
 
     // 将 localCache 数据同步到 login/vuex中
     syncLocalCacheData({ commit }) {
-      const token = localCache.getCache(TOKEN)
-      const userInfo = localCache.getCache(USERINFO)
-      const userMenus = localCache.getCache(USERMENUS)
+      const token = useLocalCache.getCache(TOKEN)
+      const userInfo = useLocalCache.getCache(USERINFO)
+      const userMenus = useLocalCache.getCache(USERMENUS)
       token ? commit('changeToken', token) : null
       userInfo ? commit('changeUserInfo', userInfo) : null
       userMenus ? commit('changeUserMenus', userMenus) : null

@@ -1,8 +1,8 @@
 import { reactive } from 'vue'
-import { localCache } from 'ofi-hooks'
+import { useLocalCache } from 'ofi-hooks'
 export const account = reactive({
-  name: localCache.getCache('name') ?? '',
-  password: localCache.getCache('password') ?? ''
+  name: useLocalCache.getCache('name') ?? '',
+  password: useLocalCache.getCache('password') ?? ''
 })
 // 规则
 export const rules = {

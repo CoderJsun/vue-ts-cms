@@ -15,7 +15,7 @@
 import { ElForm } from 'element-plus'
 import { defineComponent, ref } from 'vue'
 import { account, rules } from './config/account-config'
-import { localCache } from 'ofi-hooks'
+import { useLocalCache } from 'ofi-hooks'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -29,8 +29,8 @@ export default defineComponent({
       formRef.value?.validate((validate) => {
         if (validate) {
           if (isKeepAccount) {
-            localCache.setCache('name', account.name)
-            localCache.setCache('password', account.password)
+            useLocalCache.setCache('name', account.name)
+            useLocalCache.setCache('password', account.password)
           }
           // 触发登录
           store.dispatch('login/accountLoginAction', { ...account })

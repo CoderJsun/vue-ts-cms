@@ -1,7 +1,7 @@
 // 统一出口
 import { InstallRequest } from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
-import { localCache } from 'ofi-hooks'
+import { useLocalCache } from 'ofi-hooks'
 import { TOKEN } from '../store/login/constant'
 
 const request = new InstallRequest({
@@ -9,7 +9,7 @@ const request = new InstallRequest({
   timeout: TIME_OUT,
   interceptors: {
     reqestInterceptor: (config) => {
-      const token = localCache.getCache(TOKEN)
+      const token = useLocalCache.getCache(TOKEN)
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
