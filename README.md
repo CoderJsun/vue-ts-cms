@@ -201,8 +201,9 @@ npx husky-init && npm install
 ![image-20210723112817691](https://tva1.sinaimg.cn/large/008i3skNgy1gsqq26phpxj30dj06fgm3.jpg)
 
 接下来，我们需要去完成一个操作：在进行 commit 时，执行 lint 脚本：
-
-![image-20210723112932943](https://tva1.sinaimg.cn/large/008i3skNgy1gsqq3hn229j30nf04z74q.jpg)
+```shell
+npm run lint
+```
 
 这个时候我们执行 git commit 的时候会自动对代码进行 lint 校验。
 
