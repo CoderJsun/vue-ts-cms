@@ -1,19 +1,34 @@
 <template>
-  <h2>home page + {{ $store.state.name }}</h2>
-  <el-button>默认按钮</el-button>
-  <el-button type="primary">主要按钮</el-button>
-  <el-button type="success">成功按钮</el-button>
-  <el-button type="info">信息按钮</el-button>
-  <el-button type="warning">警告按钮</el-button>
-  <el-button type="danger">危险按钮</el-button>
+  <el-container class="el-container">
+    <el-aside class="el-aside"><nav-menu /></el-aside>
+    <el-container>
+      <el-header><nav-header /></el-header>
+      <el-main>Main</el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import NavMenu from '../../components/nav-menu'
+import NavHeader from '../../components/nav-header'
 export default defineComponent({
-  name: 'Home'
+  name: 'Home',
+  components: {
+    NavMenu,
+    NavHeader
+  }
 })
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.el-container {
+  height: 100%;
+  .el-aside {
+    width: 200px;
+  }
+  .el-header {
+    padding: 0;
+  }
+}
+</style>

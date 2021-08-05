@@ -7,7 +7,17 @@ import {
   ElForm,
   ElFormItem,
   ElCheckbox,
-  ElLink
+  ElLink,
+  ElRow,
+  ElMenu,
+  ElCol,
+  ElSubmenu,
+  ElMenuItem,
+  ElMenuItemGroup,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain
 } from 'element-plus'
 
 const els = [
@@ -18,7 +28,17 @@ const els = [
   ElForm,
   ElFormItem,
   ElCheckbox,
-  ElLink
+  ElLink,
+  ElRow,
+  ElMenu,
+  ElCol,
+  ElSubmenu,
+  ElMenuItem,
+  ElMenuItemGroup,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain
 ]
 
 /**

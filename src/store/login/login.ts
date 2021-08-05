@@ -1,6 +1,6 @@
-import { LoginState } from './types'
+import { ILoginState } from './types'
 import { Module } from 'vuex'
-import { RootState } from '../types'
+import { IRootState } from '../types'
 import {
   accountLoginRequest,
   requestUserInfoById,
@@ -11,7 +11,7 @@ import localCache from '../../untils/cache'
 import { TOKEN, USERINFO, USERMENUS } from './constant'
 import router from '../../router'
 
-const LoginModule: Module<LoginState, RootState> = {
+const LoginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
     return {

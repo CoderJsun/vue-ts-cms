@@ -1,8 +1,10 @@
-import { createStore } from 'vuex'
-import login from './login/login'
-import { RootState } from './types'
+// 统一出口
 
-const store = createStore<RootState>({
+import { createStore, Store, useStore as useVuexStore } from 'vuex'
+import login from './login/login'
+import { IRootState, IStoreType } from './types'
+
+const store = createStore<IRootState>({
   state: () => {
     return {}
   },
@@ -11,5 +13,9 @@ const store = createStore<RootState>({
   actions: {},
   modules: { login }
 })
+
+export function useStore(): Store<IStoreType> {
+  return useVuexStore()
+}
 
 export default store

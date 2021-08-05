@@ -1,3 +1,4 @@
+// 统一出口
 import { InstallRequest } from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
 import localCache from '../untils/cache'
