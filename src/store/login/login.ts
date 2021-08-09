@@ -9,6 +9,7 @@ import {
 import { IAccount } from '../../service/login/types'
 import { useLocalCache } from 'ofi-hooks'
 import { TOKEN, USERINFO, USERMENUS } from './constant'
+import { MapMenusToRoutes } from '../../untils/map-menus'
 import router from '../../router'
 
 const LoginModule: Module<ILoginState, IRootState> = {
@@ -29,6 +30,11 @@ const LoginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      const routes = MapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute('home', route)
+      })
     }
   },
   getters: {},
@@ -63,6 +69,9 @@ const LoginModule: Module<ILoginState, IRootState> = {
       token ? commit('changeToken', token) : null
       userInfo ? commit('changeUserInfo', userInfo) : null
       userMenus ? commit('changeUserMenus', userMenus) : null
+      // 加载路由映射关系 userMens - routers
+
+      // 将 routers - > 添加到 chilrens
     }
   }
 }
