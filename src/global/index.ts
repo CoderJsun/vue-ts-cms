@@ -17,7 +17,13 @@ import {
   ElContainer,
   ElAside,
   ElHeader,
-  ElMain
+  ElMain,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElOption,
+  ElDatePicker,
+  ElSelect
 } from 'element-plus'
 
 const els = [
@@ -38,7 +44,13 @@ const els = [
   ElContainer,
   ElAside,
   ElHeader,
-  ElMain
+  ElMain,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElOption,
+  ElDatePicker,
+  ElSelect
 ]
 
 /**

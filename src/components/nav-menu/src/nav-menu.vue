@@ -63,7 +63,6 @@ export default defineComponent({
     const store = useStore<IStoreType>()
     const userMenus = computed(() => store.state.login.userMenus)
     const handleSubItemClick = (item: any) => {
-      console.log(item)
       router.push({
         path: item.url ?? 'not-found'
       })

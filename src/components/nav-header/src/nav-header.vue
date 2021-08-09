@@ -5,21 +5,21 @@
       :class="isFold ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
       @click="changeFold"
     />
-    <div class="user-info">
-      <img
-        class="img"
-        :src="'https://avatars.githubusercontent.com/u/69569435?v=4'"
-        alt="avator"
-      />
-      <span>coderz</span>
+    <div class="content">
+      <div>面包屑</div>
+      <user-info />
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import UserInfo from './user-info.vue'
 export default defineComponent({
   name: 'NavHeader',
   emits: ['changeFold'],
+  components: {
+    UserInfo
+  },
   setup(props, { emit }) {
     const isFold = ref(false)
     const changeFold = () => {
@@ -34,7 +34,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .nav-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 100%;
   .fold {
@@ -42,19 +41,11 @@ export default defineComponent({
     cursor: pointer;
     text-align: center;
   }
-  .user-info {
+  .content {
+    flex: 1;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    .img {
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-    }
-    span {
-      margin-left: 10px;
-      cursor: pointer;
-    }
+    margin: 0 20px;
   }
 }
 </style>

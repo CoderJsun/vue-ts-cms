@@ -30,11 +30,6 @@ const LoginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
-
-      const routes = MapMenusToRoutes(userMenus)
-      routes.forEach((route) => {
-        router.addRoute('home', route)
-      })
     }
   },
   getters: {},
@@ -69,9 +64,12 @@ const LoginModule: Module<ILoginState, IRootState> = {
       token ? commit('changeToken', token) : null
       userInfo ? commit('changeUserInfo', userInfo) : null
       userMenus ? commit('changeUserMenus', userMenus) : null
-      // 加载路由映射关系 userMens - routers
 
-      // 将 routers - > 添加到 chilrens
+      // 加载路由
+      const routes = MapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute('home', route)
+      })
     }
   }
 }
