@@ -27,7 +27,7 @@ export default defineComponent({
       url: '/users/list',
       query: { offset: 0, size: 10 }
     })
-
+    // 用户数据
     const userList = computed(() => store.state.system.userList)
 
     return { searchFormConfig, userList, tablePropsConfig }
