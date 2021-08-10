@@ -6,16 +6,18 @@
       @click="changeFold"
     />
     <div class="content">
-      <made-bread-crumb :data="breadcrumb" />
+      <made-bread-crumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import UserInfo from './user-info.vue'
 import { MadeBreadCrumb } from '@/base-ui/breadcrumb'
 import { useRoute } from 'vue-router'
+import { pathMapToBreadCrumbs } from '@/untils/map-menus'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'NavHeader',
@@ -29,13 +31,17 @@ export default defineComponent({
     const isFold = ref(false)
     // 面包屑数据
     const route = useRoute()
-    const breadcrumb = route.path
+    const store = useStore()
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus
+      return pathMapToBreadCrumbs(userMenus, route.path)
+    })
     // 折叠事件
     const changeFold = () => {
       isFold.value = !isFold.value
       emit('changeFold', isFold.value)
     }
-    return { changeFold, isFold, breadcrumb }
+    return { changeFold, isFold, breadcrumbs }
   }
 })
 </script>

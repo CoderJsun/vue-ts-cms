@@ -1,18 +1,23 @@
 <template>
   <div class="container">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <template v-for="item in breadcrumbs" :key="item.name">
+        <el-breadcrumb-item :to="{ path: item.path }">{{
+          item.name
+        }}</el-breadcrumb-item>
+      </template>
     </el-breadcrumb>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { IBreadCrumb } from '@/base-ui/breadcrumb'
 export default defineComponent({
   name: 'MadeBreadCrumb',
   props: {
-    data: {
-      type: Array,
+    breadcrumbs: {
+      type: Array as PropType<IBreadCrumb[]>,
       required: true
     }
   }
