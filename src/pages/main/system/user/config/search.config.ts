@@ -1,4 +1,4 @@
-import { IForm } from 'components/base-ui/form'
+import { IForm } from '@/base-ui/form'
 
 export const searchFormConfig: IForm = {
   formItems: [

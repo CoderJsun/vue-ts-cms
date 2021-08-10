@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useLocalCache } from 'ofi-hooks'
 import { TOKEN } from '../store/login/constant'
+import { firstMenu } from '@/untils/map-menus'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -36,6 +37,11 @@ router.beforeEach((to) => {
     if (!token) {
       return '/login'
     }
+  }
+
+  // 进入的默认模块
+  if (to.path === '/home') {
+    return firstMenu.url
   }
 })
 

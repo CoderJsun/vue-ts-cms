@@ -23,7 +23,9 @@ import {
   ElDropdownItem,
   ElOption,
   ElDatePicker,
-  ElSelect
+  ElSelect,
+  ElBreadcrumb,
+  ElBreadcrumbItem
 } from 'element-plus'
 
 const els = [
@@ -50,7 +52,9 @@ const els = [
   ElDropdownItem,
   ElOption,
   ElDatePicker,
-  ElSelect
+  ElSelect,
+  ElBreadcrumb,
+  ElBreadcrumbItem
 ]
 
 /**

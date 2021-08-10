@@ -9,7 +9,7 @@
       background-color="#21252B"
       text-color="#696969"
       active-text-color="#F5F5F5"
-      default-active="2"
+      :default-active="defaultValue"
       :collapse="isCollapse"
     >
       <template v-for="item in userMenus" :key="item.id">
@@ -46,9 +46,10 @@
 </template>
 <script lang="ts">
 import { useStore } from 'vuex'
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { IStoreType } from '../../../store/types'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { pathMapToMenu } from '@/untils/map-menus'
 
 export default defineComponent({
   name: 'NavMenu',
@@ -59,9 +60,17 @@ export default defineComponent({
     }
   },
   setup() {
-    const router = useRouter()
+    // store
     const store = useStore<IStoreType>()
     const userMenus = computed(() => store.state.login.userMenus)
+    // router
+    const router = useRouter()
+    const currentPath = useRoute().path
+
+    // data
+    const menu = pathMapToMenu(userMenus.value, currentPath)
+    const defaultValue = ref(menu.id + '')
+    // event handle
     const handleSubItemClick = (item: any) => {
       router.push({
         path: item.url ?? 'not-found'
@@ -69,6 +78,7 @@ export default defineComponent({
     }
     return {
       userMenus,
+      defaultValue,
       handleSubItemClick
     }
   }

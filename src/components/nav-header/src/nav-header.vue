@@ -6,7 +6,7 @@
       @click="changeFold"
     />
     <div class="content">
-      <div>面包屑</div>
+      <made-bread-crumb :data="breadcrumb" />
       <user-info />
     </div>
   </div>
@@ -14,19 +14,28 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import UserInfo from './user-info.vue'
+import { MadeBreadCrumb } from '@/base-ui/breadcrumb'
+import { useRoute } from 'vue-router'
+
 export default defineComponent({
   name: 'NavHeader',
   emits: ['changeFold'],
   components: {
-    UserInfo
+    UserInfo,
+    MadeBreadCrumb
   },
   setup(props, { emit }) {
+    //是否折叠
     const isFold = ref(false)
+    // 面包屑数据
+    const route = useRoute()
+    const breadcrumb = route.path
+    // 折叠事件
     const changeFold = () => {
       isFold.value = !isFold.value
       emit('changeFold', isFold.value)
     }
-    return { changeFold, isFold }
+    return { changeFold, isFold, breadcrumb }
   }
 })
 </script>
@@ -44,6 +53,7 @@ export default defineComponent({
   .content {
     flex: 1;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin: 0 20px;
   }

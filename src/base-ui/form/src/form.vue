@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { IForm } from '../config/types'
+import { IForm } from '../types/types'
 export default defineComponent({
   props: {
     formItems: {

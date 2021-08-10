@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="search">
-      <IWForm v-bind="searchFormConfig" />
+      <made-form v-bind="searchFormConfig" />
     </div>
     <div class="content"></div>
   </div>
@@ -9,13 +9,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { IWForm } from 'components/base-ui/form'
+import { MadeForm } from '@/base-ui/form'
 import { searchFormConfig } from './config/search.config'
 
 export default defineComponent({
   name: 'user',
   components: {
-    IWForm
+    MadeForm
   },
   setup() {
     return { searchFormConfig }
