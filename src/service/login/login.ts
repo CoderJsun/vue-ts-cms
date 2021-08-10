@@ -1,5 +1,6 @@
 import instance from '../index'
-import { IAccount, IResult, ILoginResult } from './types'
+import { IAccount, ILoginResult } from './types'
+import { IResult } from '@/service/types'
 
 enum LoginApi {
   login = '/login',

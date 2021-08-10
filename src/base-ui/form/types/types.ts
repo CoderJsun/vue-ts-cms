@@ -1,16 +1,12 @@
 type IFormType = 'password' | 'input' | 'select' | 'datepicker'
 
-interface ISports {
-  title: string
-  value: string
-}
-
 export interface IFormItem {
+  field: string
   type: IFormType
   label: string
   placeholder?: string
   rules?: any[]
-  options?: ISports[]
+  options?: any[]
   otherOptions?: any
 }
 

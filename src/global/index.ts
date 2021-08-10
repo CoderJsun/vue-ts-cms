@@ -25,7 +25,9 @@ import {
   ElDatePicker,
   ElSelect,
   ElBreadcrumb,
-  ElBreadcrumbItem
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn
 } from 'element-plus'
 
 const els = [
@@ -54,7 +56,9 @@ const els = [
   ElDatePicker,
   ElSelect,
   ElBreadcrumb,
-  ElBreadcrumbItem
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn
 ]
 
 /**

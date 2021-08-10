@@ -1,4 +1,4 @@
-export interface ResultType {
-  id: number
-  data: any
+export interface IResult<T = any> {
+  code: number
+  data: T
 }
