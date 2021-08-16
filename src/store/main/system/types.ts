@@ -1,9 +1,11 @@
 export interface ISystemState {
-  userList: any[]
-  userCount: number
+  usersList: any[]
+  usersCount: number
+  roleList: any[]
+  roleCount: number
 }
 
 export interface IQuery {
-  url: string
+  pageName: string
   query: any
 }

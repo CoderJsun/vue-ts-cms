@@ -1,16 +1,52 @@
 <template>
   <div class="container">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-table :data="listData" border style="width: 100%" stripe>
-      <template v-for="item in tablePropsConfig" :key="item.label">
+      <el-table-column
+        v-if="showSelectColumn"
+        type="section"
+        width="60"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        width="60"
+        label="序号"
+        v-if="showIndexColumn"
+        type="index"
+        align="center"
+      ></el-table-column>
+      <template v-for="item in propList" :key="item.label">
         <el-table-column
           :prop="item.prop"
           :label="item.label"
           align="center"
           :min-width="item.minWidth"
         >
+          <template #default="scope">
+            <slot :name="item.slotName" :row="scope.row">{{
+              scope.row[item.prop]
+            }}</slot>
+          </template>
         </el-table-column>
       </template>
     </el-table>
+    <div class="footer">
+      <slot name="footer">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+          class="pagination"
+        >
+        </el-pagination>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -22,9 +58,23 @@ export default defineComponent({
       type: Array,
       required: true
     },
-    tablePropsConfig: {
+    propList: {
       type: Array,
       required: true
+    },
+    showIndexColumn: {
+      type: Boolean,
+      default: false
+    },
+    showSelectColumn: {
+      type: Boolean,
+      default: false
+    },
+    pageName: {
+      type: String
+    },
+    title: {
+      type: String
     }
   }
 })
@@ -34,5 +84,9 @@ export default defineComponent({
 .container {
   padding: 20px;
   border-top: 10px solid #f5f5f5;
+  .pagination {
+    padding: 10px;
+    text-align: right;
+  }
 }
 </style>

@@ -1,36 +1,27 @@
 <template>
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
-    <made-table :listData="userList" :tablePropsConfig="tablePropsConfig" />
+    <page-content :pageContentConfig="pageContentConfig"></page-content>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
+
 import PageSearch from '@/components/page-search'
+import PageContent from '@/components/page-content'
+
 import { searchFormConfig } from './config/search.config'
-import { useStore } from '@/store'
-import { MadeTable } from '@/base-ui/table'
-import { tablePropsConfig } from '@/pages/main/system/user/config/table.config'
+import { pageContentConfig } from '@/pages/main/system/user/config/content.config'
 
 export default defineComponent({
   name: 'user',
   components: {
     PageSearch,
-    MadeTable
+    PageContent
   },
   setup() {
-    // store
-    const store = useStore()
-    // 获取用户数据
-    store.dispatch('system/getPageListAction', {
-      url: '/users/list',
-      query: { offset: 0, size: 10 }
-    })
-    // 用户数据
-    const userList = computed(() => store.state.system.userList)
-
-    return { searchFormConfig, userList, tablePropsConfig }
+    return { searchFormConfig, pageContentConfig }
   }
 })
 </script>
