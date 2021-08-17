@@ -39,6 +39,6 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/components/page-content/types"  ],
   "exclude": ["node_modules"]
 }

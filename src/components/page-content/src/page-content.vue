@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <made-table v-bind="pageContentConfig" :listData="dataList">
+    <made-table
+      v-bind="pageContentConfig"
+      :listData="dataList"
+      :listCount="dataCount"
+      v-model:page="pageInfo"
+      @handleCurrentChange="handleCurrentChange"
+      @handleSizeChange="handleSizeChange"
+    >
       <template #status="scope">
         <el-button
           :type="scope.row.enable ? 'success' : 'danger'"
@@ -25,16 +32,24 @@
           >
         </div>
       </template>
+
+      <!-- 动态slot -->
+      <template v-for="item in slots" :key="item.prop" #[item.slotName]="scope">
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
+      </template>
     </made-table>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 
 import { MadeTable } from '@/base-ui/table'
 
 import { useStore } from '@/store'
+import { IPageContentQuery } from '@/components/page-content'
 
 export default defineComponent({
   components: {
@@ -49,18 +64,59 @@ export default defineComponent({
   setup(props) {
     // store
     const store = useStore()
+
+    // 监听 queryInfo变化
+    const pageInfo = ref<IPageContentQuery>({ currentPage: 0, pageSize: 10 })
+    const handleCurrentChange = (newValue: IPageContentQuery) => {
+      pageInfo.value = newValue
+    }
+    const handleSizeChange = (newValue: IPageContentQuery) => {
+      pageInfo.value = newValue
+    }
+    watch(pageInfo, () => getPageData())
+
     // 请求用户数据
-    store.dispatch(`system/getPageListAction`, {
-      pageName: props.pageContentConfig.pageName,
-      query: { offset: 0, size: 10 }
-    })
+    const getPageData = (query: any = {}) => {
+      store.dispatch(`system/getPageListAction`, {
+        pageName: props.pageContentConfig.pageName,
+        query: {
+          offset: pageInfo.value.pageSize * pageInfo.value.currentPage,
+          size: pageInfo.value.pageSize,
+          ...query
+        }
+      })
+    }
+
+    getPageData()
 
     // 获取数据
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageContentConfig.pageName)
     )
+    const dataCount = computed(() =>
+      store.getters[`system/pageListCount`](props.pageContentConfig.pageName)
+    )
 
-    return { dataList }
+    // 获取动态slot
+    const slots = props.pageContentConfig?.propList.filter((item: any) => {
+      if (item.slotName === 'status') return false
+      if (item.slotName === 'createAt') return false
+      if (item.slotName === 'updateAt') return false
+      if (item.slotName === 'options') return false
+      return true
+    })
+
+    console.log(slots)
+
+    return {
+      dataList,
+      getPageData,
+      dataCount,
+      pageInfo,
+      handleCurrentChange,
+      handleSizeChange,
+      slots
+    }
   }
 })
 </script>

@@ -3,36 +3,36 @@ import { IForm } from '@/base-ui/form'
 export const searchFormConfig: IForm = {
   formItems: [
     {
-      field: 'id',
-      label: 'id',
-      type: 'input',
-      placeholder: '请输入id'
-    },
-    {
       field: 'name',
       label: '用户名',
       type: 'input',
       placeholder: '请输入用户名'
     },
     {
-      field: 'password',
-      label: '密码',
-      type: 'password',
-      placeholder: '请输入密码'
+      field: 'realname',
+      label: '真实姓名',
+      type: 'input',
+      placeholder: '请输入真实姓名'
     },
     {
-      field: 'status',
-      label: '喜欢的运动',
+      field: 'cellphone',
+      label: '手机号码',
+      type: 'input',
+      placeholder: '请输入手机号码'
+    },
+    {
+      field: 'enable',
+      label: '账号状态',
       type: 'select',
-      placeholder: '请选择喜欢的运',
+      placeholder: '请选择账号状态',
       options: [
         {
-          title: '足球',
-          value: 'football'
+          title: '启用',
+          value: 1
         },
         {
-          title: '篮球',
-          value: 'baskball'
+          title: '禁用',
+          value: 0
         }
       ]
     },

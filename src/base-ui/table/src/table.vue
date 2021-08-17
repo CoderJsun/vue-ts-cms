@@ -23,6 +23,7 @@
           :label="item.label"
           align="center"
           :min-width="item.minWidth"
+          show-overflow-tooltip
         >
           <template #default="scope">
             <slot :name="item.slotName" :row="scope.row">{{
@@ -37,11 +38,11 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :current-page="page.currentPage"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="page.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="listCount"
           class="pagination"
         >
         </el-pagination>
@@ -57,6 +58,9 @@ export default defineComponent({
     listData: {
       type: Array,
       required: true
+    },
+    listCount: {
+      type: Number
     },
     propList: {
       type: Array,
@@ -75,7 +79,21 @@ export default defineComponent({
     },
     title: {
       type: String
+    },
+    page: {
+      type: Object,
+      default: () => ({ currentPage: 0, pageSize: 10 })
     }
+  },
+  emits: ['handleSizeChange', 'handleCurrentChange'],
+  setup(props, { emit }) {
+    const handleSizeChange = (pageSize: number) => {
+      emit('handleSizeChange', { ...props.page, pageSize })
+    }
+    const handleCurrentChange = (currentPage: number) => {
+      emit('handleCurrentChange', { ...props.page, currentPage })
+    }
+    return { handleSizeChange, handleCurrentChange }
   }
 })
 </script>

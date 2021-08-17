@@ -3,8 +3,13 @@
     <made-form v-bind="searchFormConfig">
       <template #footer>
         <div class="btns-footer">
-          <el-button>重置</el-button>
-          <el-button type="primary" icon="el-icon-search">检索</el-button>
+          <el-button @click="handleResetClick">重置</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            @click="handleQueryClick"
+            >检索</el-button
+          >
         </div>
       </template>
     </made-form>
@@ -24,6 +29,18 @@ export default defineComponent({
   },
   components: {
     MadeForm
+  },
+  emits: ['handleResetClick', 'handleQueryClick'],
+  setup(props, { emit }) {
+    // 重置数据
+    const handleResetClick = () => {
+      emit('handleResetClick')
+    }
+    // 检索数据
+    const handleQueryClick = () => {
+      emit('handleQueryClick', props.searchFormConfig)
+    }
+    return { handleResetClick, handleQueryClick }
   }
 })
 </script>
