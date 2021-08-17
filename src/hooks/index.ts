@@ -1,3 +1,3 @@
 import { usePageSearch } from './src/use-page-content'
-
-export { usePageSearch }
+import { usePermission } from './src/use-permission'
+export { usePageSearch, usePermission }

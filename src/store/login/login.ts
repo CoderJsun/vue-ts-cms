@@ -9,7 +9,7 @@ import {
 import { IAccount } from '../../service/login/types'
 import { useLocalCache } from 'ofi-hooks'
 import { TOKEN, USERINFO, USERMENUS } from './constant'
-import { MapMenusToRoutes } from '../../untils/map-menus'
+import { MapMenusToRoutes, mapMenusToPermissions } from '../../untils/map-menus'
 import router from '../../router'
 
 const LoginModule: Module<ILoginState, IRootState> = {
@@ -18,7 +18,8 @@ const LoginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: [],
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   mutations: {
@@ -30,6 +31,16 @@ const LoginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      // 加载路由
+      const routes = MapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute('home', route)
+      })
+
+      // 获取用户按钮权限
+      const permissions = mapMenusToPermissions(userMenus)
+      state.permissions = permissions
     }
   },
   getters: {},
@@ -41,12 +52,10 @@ const LoginModule: Module<ILoginState, IRootState> = {
       const { id, token } = LoginResult.data
       commit('changeToken', token)
       useLocalCache.setCache(TOKEN, token)
-
       // 用户详细信息
       const userInfoResult = await requestUserInfoById(id)
       commit('changeUserInfo', userInfoResult.data)
       useLocalCache.setCache(USERINFO, userInfoResult.data)
-
       // 权限菜单
       const userMenus = await requestUserMenusById(userInfoResult.data.role.id)
       commit('changeUserMenus', userMenus.data)
@@ -64,12 +73,6 @@ const LoginModule: Module<ILoginState, IRootState> = {
       token ? commit('changeToken', token) : null
       userInfo ? commit('changeUserInfo', userInfo) : null
       userMenus ? commit('changeUserMenus', userMenus) : null
-
-      // 加载路由
-      const routes = MapMenusToRoutes(userMenus)
-      routes.forEach((route) => {
-        router.addRoute('home', route)
-      })
     }
   }
 }

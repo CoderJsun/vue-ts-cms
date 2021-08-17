@@ -19,4 +19,8 @@ export function useStore(): Store<IStoreType> {
   return useVuexStore()
 }
 
+export function setupStore() {
+  store.dispatch('login/syncLocalCacheData')
+}
+
 export default store

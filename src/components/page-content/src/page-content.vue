@@ -24,10 +24,20 @@
       </template>
       <template #options>
         <div>
-          <el-button plain size="mini" type="text" icon="el-icon-edit"
+          <el-button
+            v-if="permission.isUpdate"
+            plain
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
             >编辑</el-button
           >
-          <el-button plain size="mini" type="text" icon="el-icon-delete"
+          <el-button
+            plain
+            size="mini"
+            type="text"
+            icon="el-icon-delete"
+            v-if="permission.isDelete"
             >删除</el-button
           >
         </div>
@@ -49,7 +59,10 @@ import { computed, defineComponent, ref, watch } from 'vue'
 import { MadeTable } from '@/base-ui/table'
 
 import { useStore } from '@/store'
+import { usePermission } from '@/hooks'
+
 import { IPageContentQuery } from '@/components/page-content'
+import { IPermission } from '@/hooks/src/use-permission'
 
 export default defineComponent({
   components: {
@@ -65,6 +78,14 @@ export default defineComponent({
     // store
     const store = useStore()
 
+    // 操作权限
+    const permission = ref<IPermission>({
+      isCreate: usePermission(props.pageContentConfig.pageName, 'create'),
+      isUpdate: usePermission(props.pageContentConfig.pageName, 'update'),
+      isDelete: usePermission(props.pageContentConfig.pageName, 'delete'),
+      isQuery: usePermission(props.pageContentConfig.pageName, 'query')
+    })
+
     // 监听 queryInfo变化
     const pageInfo = ref<IPageContentQuery>({ currentPage: 0, pageSize: 10 })
     const handleCurrentChange = (newValue: IPageContentQuery) => {
@@ -77,14 +98,16 @@ export default defineComponent({
 
     // 请求用户数据
     const getPageData = (query: any = {}) => {
-      store.dispatch(`system/getPageListAction`, {
-        pageName: props.pageContentConfig.pageName,
-        query: {
-          offset: pageInfo.value.pageSize * pageInfo.value.currentPage,
-          size: pageInfo.value.pageSize,
-          ...query
-        }
-      })
+      if (permission.value.isQuery) {
+        store.dispatch(`system/getPageListAction`, {
+          pageName: props.pageContentConfig.pageName,
+          query: {
+            offset: pageInfo.value.pageSize * pageInfo.value.currentPage,
+            size: pageInfo.value.pageSize,
+            ...query
+          }
+        })
+      }
     }
 
     getPageData()
@@ -115,7 +138,8 @@ export default defineComponent({
       pageInfo,
       handleCurrentChange,
       handleSizeChange,
-      slots
+      slots,
+      permission
     }
   }
 })
