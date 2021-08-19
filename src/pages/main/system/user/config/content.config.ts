@@ -1,4 +1,5 @@
-export const pageContentConfig = {
+import { IPageContentConfig } from '@/pages/main/system/user/config/types'
+export const pageContentConfig: IPageContentConfig = {
   title: '用户列表',
   propList: [
     { prop: 'name', label: '用户名', minWidth: '80' },
@@ -26,5 +27,9 @@ export const pageContentConfig = {
   ],
   showIndexColumn: true, //是否显示索引
   showSelectColumn: false, //是否显示勾选
-  pageName: 'users'
+  pageName: 'users',
+  headerhandler: [
+    { type: 'primary', title: '新建用户' },
+    { type: 'warning', title: '删除用户' }
+  ]
 }

@@ -1,7 +1,7 @@
 import { Module } from 'vuex'
-import { IQuery, ISystemState } from './types'
+import { ISystemQuery, ISystemState, ISystemDelete } from './types'
 import { IRootState } from '@/store/types'
-import { getPageListData } from '@/service/main/system'
+import { getPageListData, deletePageData } from '@/service/main/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -56,7 +56,7 @@ const systemModule: Module<ISystemState, IRootState> = {
     }
   },
   actions: {
-    async getPageListAction({ commit }, payload: IQuery) {
+    async getPageListAction({ commit }, payload: ISystemQuery) {
       const url = `/${payload.pageName}/list`
       const pageList = await getPageListData(url, payload.query)
       const { list, totalCount } = pageList.data
@@ -64,6 +64,29 @@ const systemModule: Module<ISystemState, IRootState> = {
         payload.pageName.slice(0, 1).toUpperCase() + payload.pageName.slice(1)
       commit(`change${changeName}ListAction`, list)
       commit(`change${changeName}CountAction`, totalCount)
+    },
+
+    // 删除操作
+    async deletePageDataAction({ dispatch }, payload: ISystemDelete) {
+      // 1.获取参数
+      // pageName -> /users/id
+      // id
+      const { pageName, id } = payload
+      const url = `/${pageName}/${id}`
+      // 2.删除请求
+      try {
+        await deletePageData(url)
+      } catch (error) {
+        console.log(error)
+      }
+      // 3.重新请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        query: {
+          offset: 0,
+          pageSize: 10
+        }
+      })
     }
   }
 }

@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="header">
-      <slot name="header"></slot>
+      <slot name="header">
+        <div class="title">{{ title }}</div>
+        <div class="handler">
+          <slot name="handler"></slot>
+        </div>
+      </slot>
     </div>
     <el-table
       :data="listData"
@@ -119,6 +124,22 @@ export default defineComponent({
   .pagination {
     padding: 10px;
     text-align: right;
+  }
+  .header-content {
+    display: flex;
+    justify-content: space-around;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 22px;
+    .title {
+      font-weight: bold;
+    }
+    .handler {
+      display: flex;
+    }
   }
 }
 </style>

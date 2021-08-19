@@ -9,7 +9,17 @@ export interface ISystemState {
   menuCount: number
 }
 
-export interface IQuery {
+interface IQuery {
+  offset: number
+  pageSize: number
+}
+
+export interface ISystemQuery {
   pageName: string
-  query: any
+  query: IQuery
+}
+
+export interface ISystemDelete {
+  pageName: string
+  id: number
 }

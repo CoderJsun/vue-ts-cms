@@ -8,6 +8,16 @@
       @handleCurrentChange="handleCurrentChange"
       @handleSizeChange="handleSizeChange"
     >
+      <!-- 固定 slot -->
+      <template #handler>
+        <!-- <el-button type="primary" size="medium">新建用户</el-button> -->
+        <el-button
+          v-for="handler in pageContentConfig.headerhandler"
+          :key="handler.type"
+          :type="handler.type"
+          >{{ handler.title }}</el-button
+        >
+      </template>
       <template #status="scope">
         <el-button
           :type="scope.row.enable ? 'success' : 'danger'"
@@ -22,7 +32,7 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #options>
+      <template #options="scope">
         <div>
           <el-button
             v-if="permission.isUpdate"
@@ -38,6 +48,7 @@
             type="text"
             icon="el-icon-delete"
             v-if="permission.isDelete"
+            @click="handleDeleteClick(scope.row)"
             >删除</el-button
           >
         </div>
@@ -87,7 +98,7 @@ export default defineComponent({
     })
 
     // 监听 queryInfo变化
-    const pageInfo = ref<IPageContentQuery>({ currentPage: 0, pageSize: 10 })
+    const pageInfo = ref<IPageContentQuery>({ currentPage: 1, pageSize: 10 })
     const handleCurrentChange = (newValue: IPageContentQuery) => {
       pageInfo.value = newValue
     }
@@ -102,7 +113,7 @@ export default defineComponent({
         store.dispatch(`system/getPageListAction`, {
           pageName: props.pageContentConfig.pageName,
           query: {
-            offset: pageInfo.value.pageSize * pageInfo.value.currentPage,
+            offset: pageInfo.value.pageSize * (pageInfo.value.currentPage - 1),
             size: pageInfo.value.pageSize,
             ...query
           }
@@ -129,7 +140,13 @@ export default defineComponent({
       return true
     })
 
-    console.log(slots)
+    // 删除/编辑/新建 操作
+    const handleDeleteClick = (item: any) => {
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageContentConfig.pageName,
+        id: item.id
+      })
+    }
 
     return {
       dataList,
@@ -139,7 +156,8 @@ export default defineComponent({
       handleCurrentChange,
       handleSizeChange,
       slots,
-      permission
+      permission,
+      handleDeleteClick
     }
   }
 })
