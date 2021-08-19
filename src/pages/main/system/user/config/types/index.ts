@@ -4,7 +4,7 @@ export interface IPageContentConfig {
   showIndexColumn?: boolean
   showSelectColumn?: boolean
   pageName: string
-  headerhandler?: IHandlerProp[] // 表头操作
+  headerhandler?: IHandlerProps[] // 表头操作
 }
 
 interface IPropList {
@@ -14,7 +14,7 @@ interface IPropList {
   slotName?: string
 }
 
-interface IHandlerProp {
+interface IHandlerProps {
   type: string
   title: string
 }

@@ -40,6 +40,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
+            @click="handleEditClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -148,6 +149,11 @@ export default defineComponent({
       })
     }
 
+    // 编辑数据
+    const handleEditClick = (item: any) => {
+      console.log(item)
+    }
+
     return {
       dataList,
       getPageData,
@@ -157,7 +163,8 @@ export default defineComponent({
       handleSizeChange,
       slots,
       permission,
-      handleDeleteClick
+      handleDeleteClick,
+      handleEditClick
     }
   }
 })

@@ -1,6 +1,6 @@
 import { IPageContentConfig } from '@/pages/main/system/user/config/types'
 export const pageContentConfig: IPageContentConfig = {
-  title: '用户列表',
+  title: '用户列表', //table 表头名称
   propList: [
     { prop: 'name', label: '用户名', minWidth: '80' },
     { prop: 'realname', label: '真实姓名', minWidth: '80' },
@@ -24,12 +24,9 @@ export const pageContentConfig: IPageContentConfig = {
       minWidth: '60',
       slotName: 'options'
     }
-  ],
+  ], //表格属性
   showIndexColumn: true, //是否显示索引
   showSelectColumn: false, //是否显示勾选
-  pageName: 'users',
-  headerhandler: [
-    { type: 'primary', title: '新建用户' },
-    { type: 'warning', title: '删除用户' }
-  ]
+  pageName: 'users', //页面名称
+  headerhandler: [{ type: 'primary', title: '新建用户' }] //table 表头功能
 }
