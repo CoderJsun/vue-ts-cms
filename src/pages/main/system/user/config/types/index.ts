@@ -4,7 +4,7 @@ export interface IPageContentConfig {
   showIndexColumn?: boolean
   showSelectColumn?: boolean
   pageName: string
-  headerhandler?: IHandlerProps[] // 表头操作
+  operation?: IOptionsClick[] // 表头操作
 }
 
 interface IPropList {
@@ -14,7 +14,10 @@ interface IPropList {
   slotName?: string
 }
 
-interface IHandlerProps {
+type Affair = 'create' | 'edit' //事务类型
+
+export interface IOptionsClick {
   type: string
   title: string
+  affair?: Affair // 操作的事务
 }

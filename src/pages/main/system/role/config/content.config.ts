@@ -1,11 +1,9 @@
 import { IPageContentConfig } from '@/pages/main/system/user/config/types'
 export const pageContentConfig: IPageContentConfig = {
-  title: '用户列表', //table 表头名称
+  title: '角色列表', //table 表头名称
   propList: [
-    { prop: 'name', label: '用户名', minWidth: '80' },
-    { prop: 'realname', label: '真实姓名', minWidth: '80' },
-    { prop: 'cellphone', label: '手机号', minWidth: '80' },
-    { prop: 'enable', label: '状态', minWidth: '50', slotName: 'status' },
+    { prop: 'name', label: '角色名', minWidth: '80' },
+    { prop: 'intro', label: '角色介绍', minWidth: '80' },
     {
       prop: 'createAt',
       label: '创建时间',
@@ -27,6 +25,6 @@ export const pageContentConfig: IPageContentConfig = {
   ], //表格属性
   showIndexColumn: true, //是否显示索引
   showSelectColumn: false, //是否显示勾选
-  pageName: 'users', //页面名称
-  operation: [{ type: 'primary', title: '新建用户' }] //table 表头功能
+  pageName: 'role', //页面名称
+  operation: [{ type: 'primary', title: '新建角色', affair: 'create' }] //table 表头功能
 }

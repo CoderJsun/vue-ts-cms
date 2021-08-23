@@ -1,7 +1,16 @@
 import { Module } from 'vuex'
-import { ISystemQuery, ISystemState, ISystemDelete } from './types'
+import {
+  ISystemQuery,
+  ISystemState,
+  ISystemDelete,
+  ISystemCreate
+} from './types'
 import { IRootState } from '@/store/types'
-import { getPageListData, deletePageData } from '@/service/main/system'
+import {
+  getPageListData,
+  deletePageData,
+  createPageData
+} from '@/service/main/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -59,11 +68,13 @@ const systemModule: Module<ISystemState, IRootState> = {
     async getPageListAction({ commit }, payload: ISystemQuery) {
       const url = `/${payload.pageName}/list`
       const pageList = await getPageListData(url, payload.query)
-      const { list, totalCount } = pageList.data
-      const changeName =
-        payload.pageName.slice(0, 1).toUpperCase() + payload.pageName.slice(1)
-      commit(`change${changeName}ListAction`, list)
-      commit(`change${changeName}CountAction`, totalCount)
+      if (pageList.data) {
+        const { list, totalCount } = pageList.data
+        const changeName =
+          payload.pageName.slice(0, 1).toUpperCase() + payload.pageName.slice(1)
+        commit(`change${changeName}ListAction`, list)
+        commit(`change${changeName}CountAction`, totalCount)
+      }
     },
 
     // 删除操作
@@ -84,7 +95,23 @@ const systemModule: Module<ISystemState, IRootState> = {
         pageName,
         query: {
           offset: 0,
-          pageSize: 10
+          size: 10
+        }
+      })
+    },
+
+    // 新建角色
+    async createPageDataAction({ dispatch }, payload: ISystemCreate) {
+      const { pageName, data } = payload
+      const url = `/${pageName}`
+      await createPageData(url, data)
+      // 获取新数据
+      // 3.重新请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        query: {
+          offset: 0,
+          size: 1000
         }
       })
     }

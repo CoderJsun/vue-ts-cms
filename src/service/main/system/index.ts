@@ -9,8 +9,14 @@ export function getPageListData(url: string, query: any) {
 }
 
 export function deletePageData(url: string) {
-  console.log(url)
   return request.delete<IResult>({
     url
+  })
+}
+
+export function createPageData(url: string, data: any) {
+  return request.post<IResult>({
+    url,
+    data
   })
 }

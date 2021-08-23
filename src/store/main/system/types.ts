@@ -23,3 +23,8 @@ export interface ISystemDelete {
   pageName: string
   id: number
 }
+
+export interface ISystemCreate {
+  pageName: string
+  data: any
+}

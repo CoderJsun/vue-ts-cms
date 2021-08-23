@@ -12,10 +12,11 @@
       <template #handler>
         <!-- <el-button type="primary" size="medium">新建用户</el-button> -->
         <el-button
-          v-for="handler in pageContentConfig.headerhandler"
-          :key="handler.type"
-          :type="handler.type"
-          >{{ handler.title }}</el-button
+          v-for="item in pageContentConfig.operation"
+          :key="item.type"
+          :type="item.type"
+          @click="handleOptionsClick(item)"
+          >{{ item.title }}</el-button
         >
       </template>
       <template #status="scope">
@@ -80,13 +81,14 @@ export default defineComponent({
   components: {
     MadeTable
   },
+  emits: ['handleOptionsClick', 'handleEditClick'],
   props: {
     pageContentConfig: {
       type: Object,
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     // store
     const store = useStore()
 
@@ -151,7 +153,12 @@ export default defineComponent({
 
     // 编辑数据
     const handleEditClick = (item: any) => {
-      console.log(item)
+      emit('handleEditClick', item)
+    }
+
+    // 操作
+    const handleOptionsClick = (item: any) => {
+      emit('handleOptionsClick', item)
     }
 
     return {
@@ -164,7 +171,8 @@ export default defineComponent({
       slots,
       permission,
       handleDeleteClick,
-      handleEditClick
+      handleEditClick,
+      handleOptionsClick
     }
   }
 })
