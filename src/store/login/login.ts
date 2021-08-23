@@ -46,12 +46,16 @@ const LoginModule: Module<ILoginState, IRootState> = {
   getters: {},
   actions: {
     // 账号登录
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       // 登录逻辑
       const LoginResult = await accountLoginRequest(payload)
       const { id, token } = LoginResult.data
       commit('changeToken', token)
       useLocalCache.setCache(TOKEN, token)
+
+      // 发送初始化请求 role/department
+      dispatch('initialDataAction', null, { root: true })
+
       // 用户详细信息
       const userInfoResult = await requestUserInfoById(id)
       commit('changeUserInfo', userInfoResult.data)
@@ -66,13 +70,15 @@ const LoginModule: Module<ILoginState, IRootState> = {
     },
 
     // 将 localCache 数据同步到 login/vuex中
-    syncLocalCacheData({ commit }) {
+    syncLocalCacheData({ commit, dispatch }) {
       const token = useLocalCache.getCache(TOKEN)
       const userInfo = useLocalCache.getCache(USERINFO)
       const userMenus = useLocalCache.getCache(USERMENUS)
       token ? commit('changeToken', token) : null
       userInfo ? commit('changeUserInfo', userInfo) : null
       userMenus ? commit('changeUserMenus', userMenus) : null
+      // 发送初始化请求 role/department
+      dispatch('initialDataAction', null, { root: true })
     }
   }
 }

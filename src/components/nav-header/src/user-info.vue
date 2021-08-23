@@ -6,7 +6,9 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item disabled>个人信息</el-dropdown-item>
-          <el-dropdown-item divided>退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click="handleLoginOutClick"
+            >退出登录</el-dropdown-item
+          >
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -16,12 +18,26 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
+import { useLocalCache } from 'ofi-hooks'
+import { TOKEN } from '@/store/login/constant'
+
 export default defineComponent({
   setup() {
     const store = useStore()
     const user = computed(() => store.state.login.userInfo)
+
+    // 退出登录
+    const router = useRouter()
+    const handleLoginOutClick = () => {
+      useLocalCache.deleteCache(TOKEN)
+      router.push('/home')
+    }
+
     return {
-      user
+      user,
+      handleLoginOutClick
     }
   }
 })

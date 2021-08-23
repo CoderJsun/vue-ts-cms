@@ -49,7 +49,6 @@ export function useStore(): Store<IStoreType> {
 
 export function setupStore() {
   store.dispatch('login/syncLocalCacheData')
-  store.dispatch('initialDataAction')
 }
 
 export default store
