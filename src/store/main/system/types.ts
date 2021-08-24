@@ -24,7 +24,8 @@ export interface ISystemDelete {
   id: number
 }
 
-export interface ISystemCreate {
+export interface ISystemCreateOrEdit {
+  id?: number
   pageName: string
   data: any
 }

@@ -3,13 +3,14 @@ import {
   ISystemQuery,
   ISystemState,
   ISystemDelete,
-  ISystemCreate
+  ISystemCreateOrEdit
 } from './types'
 import { IRootState } from '@/store/types'
 import {
   getPageListData,
   deletePageData,
-  createPageData
+  createPageData,
+  editPageData
 } from '@/service/main/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
@@ -101,11 +102,27 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
 
     // 新建角色
-    async createPageDataAction({ dispatch }, payload: ISystemCreate) {
+    async createPageDataAction({ dispatch }, payload: ISystemCreateOrEdit) {
       const { pageName, data } = payload
       const url = `/${pageName}`
+      console.log(url, data)
       await createPageData(url, data)
       // 获取新数据
+      // 3.重新请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        query: {
+          offset: 0,
+          size: 1000
+        }
+      })
+    },
+    async editPageDataAction({ dispatch }, payload: ISystemCreateOrEdit) {
+      // 1.编辑数据的请求
+      const { pageName, data, id } = payload
+      console.log(data)
+      const pageUrl = `/${pageName}/${id}`
+      await editPageData(pageUrl, data)
       // 3.重新请求最新数据
       dispatch('getPageListAction', {
         pageName,

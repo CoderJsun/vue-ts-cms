@@ -20,3 +20,10 @@ export function createPageData(url: string, data: any) {
     data
   })
 }
+
+export function editPageData(url: string, data: any) {
+  return request.patch<IResult>({
+    url,
+    data
+  })
+}

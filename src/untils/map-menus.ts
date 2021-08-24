@@ -75,4 +75,20 @@ export function mapMenusToPermissions(userMenus: any[]) {
   return permissions
 }
 
+export function mapMenuToLeafKeys(menus: any[]) {
+  const leafKeys: number[] = []
+  const _recurseGetLeafkeys = (menus: any[]) => {
+    for (const item of menus) {
+      if (item.children) {
+        _recurseGetLeafkeys(item.children)
+      } else {
+        leafKeys.push(item.id)
+      }
+    }
+  }
+
+  _recurseGetLeafkeys(menus)
+  return leafKeys
+}
+
 export { firstMenu }

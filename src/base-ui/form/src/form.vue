@@ -60,14 +60,24 @@ import { defineComponent, PropType, ref, watch } from 'vue'
 import { IForm } from '../types/types'
 export default defineComponent({
   setup(props, { emit }) {
-    const formData = ref({ ...props.modelVaule })
-    watch(formData, (newValue) => emit('update:modelValue', newValue), {
-      deep: true
-    })
-    return { formData }
+    const formData = ref({ ...props.modelValue })
+
+    watch(
+      formData,
+      (newValue) => {
+        emit('update:modelValue', newValue)
+      },
+      {
+        deep: true
+      }
+    )
+
+    return {
+      formData
+    }
   },
   props: {
-    modelVaule: {
+    modelValue: {
       type: Object
     },
     formItems: {

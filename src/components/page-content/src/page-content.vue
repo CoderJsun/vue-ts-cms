@@ -41,7 +41,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="handleEditClick(scope.row)"
+            @click="handleOptionsClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -81,7 +81,7 @@ export default defineComponent({
   components: {
     MadeTable
   },
-  emits: ['handleOptionsClick', 'handleEditClick'],
+  emits: ['handleOptionsClick'],
   props: {
     pageContentConfig: {
       type: Object,
@@ -143,7 +143,7 @@ export default defineComponent({
       return true
     })
 
-    // 删除/编辑/新建 操作
+    // 删除/编辑 |新建操作操作
     const handleDeleteClick = (item: any) => {
       store.dispatch('system/deletePageDataAction', {
         pageName: props.pageContentConfig.pageName,
@@ -151,12 +151,6 @@ export default defineComponent({
       })
     }
 
-    // 编辑数据
-    const handleEditClick = (item: any) => {
-      emit('handleEditClick', item)
-    }
-
-    // 操作
     const handleOptionsClick = (item: any) => {
       emit('handleOptionsClick', item)
     }
@@ -171,7 +165,6 @@ export default defineComponent({
       slots,
       permission,
       handleDeleteClick,
-      handleEditClick,
       handleOptionsClick
     }
   }

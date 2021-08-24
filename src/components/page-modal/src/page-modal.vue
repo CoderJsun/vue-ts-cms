@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 import { MadeForm } from '@/base-ui/form'
 import { useStore } from '@/store'
@@ -53,15 +53,34 @@ export default defineComponent({
     const formData = ref<any>({})
     const dialogVisible = ref(false)
 
+    //回显数据
+    watch(
+      () => props.defaultInfo,
+      (newValue) => {
+        for (const item of props.modalConfig.formItems) {
+          formData.value[`${item.field}`] = newValue[`${item.field}`]
+        }
+      },
+      { deep: true }
+    )
     // 确认编辑
     const store = useStore()
     const handleConfirmClick = () => {
-      //提交请求
       dialogVisible.value = false
-      store.dispatch('system/createPageDataAction', {
-        pageName: props.modalConfig.pageName,
-        data: { ...formData.value, ...props.otherInfo }
-      })
+      if (Object.keys(props.defaultInfo).length) {
+        //编辑
+        store.dispatch('system/editPageDataAction', {
+          pageName: props.modalConfig.pageName,
+          data: { ...formData.value, ...props.otherInfo },
+          id: props.defaultInfo.id
+        })
+      } else {
+        //新建
+        store.dispatch('system/createPageDataAction', {
+          pageName: props.modalConfig.pageName,
+          data: { ...formData.value, ...props.otherInfo }
+        })
+      }
     }
 
     return { dialogVisible, formData, handleConfirmClick }
