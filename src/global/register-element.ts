@@ -31,7 +31,8 @@ import {
   ElPagination,
   ElImage,
   ElDialog,
-  ElTree
+  ElTree,
+  ElCard
 } from 'element-plus'
 
 const els = [
@@ -66,7 +67,8 @@ const els = [
   ElPagination,
   ElImage,
   ElDialog,
-  ElTree
+  ElTree,
+  ElCard
 ]
 
 /**

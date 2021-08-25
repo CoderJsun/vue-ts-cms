@@ -14,7 +14,7 @@
     >
       <div class="elTree">
         <el-tree
-          :data="entireMenu"
+          :data="data"
           show-checkbox
           node-key="id"
           ref="ElTreeRef"
@@ -56,7 +56,7 @@ export default defineComponent({
     const handleCheckChange = (data1: any, data2: any) => {
       const halfCheckedKeys = data2.halfCheckedKeys
       const checkedKeys = data2.checkedKeys
-      const menuList = { ...halfCheckedKeys, ...checkedKeys }
+      const menuList = [...halfCheckedKeys, ...checkedKeys]
       otherInfo.value = { menuList }
     }
 
@@ -78,7 +78,8 @@ export default defineComponent({
 
     // 获取全部权限菜单
     const store = useStore()
-    const entireMenu = computed(() => store.state.entireMenu)
+    const data = computed(() => store.state.entireMenu)
+    console.log('computed', data)
 
     return {
       ElTreeRef,
@@ -89,7 +90,7 @@ export default defineComponent({
       pageModalRef,
       defaultInfo,
       otherInfo,
-      entireMenu,
+      data,
       handleOptionsClick
     }
   }
