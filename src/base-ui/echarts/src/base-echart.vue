@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, withDefaults } from 'vue'
+import { ref, onMounted, defineProps, withDefaults, watchEffect } from 'vue'
 import { useEchart } from '@/base-ui/echarts/hooks/useEchart'
 import { EChartsOption } from 'echarts'
 
@@ -13,8 +13,8 @@ import { EChartsOption } from 'echarts'
 const props = withDefaults(
   defineProps<{
     options: EChartsOption
-    width: string
-    height: string
+    width?: string
+    height?: string
   }>(),
   {
     width: '100%',
@@ -25,8 +25,10 @@ const props = withDefaults(
 const echartRef = ref<HTMLElement>()
 
 onMounted(() => {
-  const { echartsInstance } = useEchart(echartRef.value!)
-  echartsInstance.setOption(props.options)
+  const { setOptions } = useEchart(echartRef.value!)
+  watchEffect(() => {
+    setOptions(props.options)
+  })
 })
 </script>
 

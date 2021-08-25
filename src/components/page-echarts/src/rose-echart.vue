@@ -16,26 +16,29 @@ const props = defineProps<{
 
 const options = computed(() => {
   return {
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      orient: 'horizontal',
-      left: 'left'
+    // legend: {
+    //   top: 'bottom'
+    // },
+    toolbox: {
+      show: true,
+      feature: {
+        mark: { show: true },
+        dataView: { show: true, readOnly: false },
+        restore: { show: true },
+        saveAsImage: { show: true }
+      }
     },
     series: [
       {
-        name: '分类数据',
+        name: '类别数据',
         type: 'pie',
-        radius: '50%',
-        data: props.data,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
+        radius: [10, 100],
+        center: ['50%', '50%'],
+        roseType: 'area',
+        itemStyle: {
+          borderRadius: 8
+        },
+        data: props.data
       }
     ]
   }
