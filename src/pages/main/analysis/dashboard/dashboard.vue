@@ -1,25 +1,31 @@
 <template>
-  <div class="dashboard">
+  <div class="layer">
     <el-row :gutter="10">
       <el-col :span="7"
         ><j-card title="分类商品数量(饼图)">
           <pie-echart :data="categoryGoodsCount"></pie-echart>
         </j-card>
       </el-col>
-      <el-col :span="10"><j-card title="不同城市销量图" /></el-col>
+      <el-col :span="10"
+        ><j-card title="不同城市销量图(地图)">
+          <map-echart :data="addressGoodsSale"></map-echart> </j-card
+      ></el-col>
       <el-col :span="7"
-        ><j-card title="分类商品数量(玫瑰图)" />
-        <rose-echart :data="categoryGoodsCount"></rose-echart>
+        ><j-card title="分类商品数量(玫瑰图)">
+          <rose-echart :data="categoryGoodsCount"></rose-echart
+        ></j-card>
       </el-col>
     </el-row>
     <el-row :gutter="10" class="content-row">
-      <el-col :span="11"
-        ><j-card title="分类商品的销量" />
-        <line-echart v-bind="categoryGoodsSale"></line-echart>
+      <el-col :span="12"
+        ><j-card title="分类商品的销量">
+          <line-echart v-bind="categoryGoodsSale"></line-echart
+        ></j-card>
       </el-col>
-      <el-col :span="11"
-        ><j-card title="分类商品的收藏" />
-        <bar-echart v-bind="categoryGoodsFavor"></bar-echart>
+      <el-col :span="12"
+        ><j-card title="分类商品的收藏">
+          <bar-echart v-bind="categoryGoodsFavor"></bar-echart
+        ></j-card>
       </el-col>
     </el-row>
   </div>
@@ -33,11 +39,19 @@ import {
   PieEchart,
   RoseEchart,
   LineEchart,
-  BarEchart
+  BarEchart,
+  MapEchart
 } from '@/components/page-echarts'
 
 export default defineComponent({
-  components: { JCard, PieEchart, RoseEchart, LineEchart, BarEchart },
+  components: {
+    JCard,
+    PieEchart,
+    RoseEchart,
+    LineEchart,
+    BarEchart,
+    MapEchart
+  },
   name: 'dashboard',
   setup() {
     // 请求数据
@@ -75,12 +89,23 @@ export default defineComponent({
       return { xLabels, values }
     })
 
-    return { categoryGoodsCount, categoryGoodsSale, categoryGoodsFavor }
+    const addressGoodsSale = computed(() => {
+      return store.state.dashboard.addressGoodsSale.map((item: any) => {
+        return { name: item.address, value: item.count }
+      })
+    })
+
+    return {
+      categoryGoodsCount,
+      categoryGoodsSale,
+      categoryGoodsFavor,
+      addressGoodsSale
+    }
   }
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .content-row {
   margin-top: 20px;
 }

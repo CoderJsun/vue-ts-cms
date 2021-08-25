@@ -6,3 +6,5 @@ declare module '*.vue' {
 }
 
 declare module 'ofi-hooks'
+
+declare module '*.json'
