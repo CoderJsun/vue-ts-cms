@@ -21,6 +21,17 @@
 | .env.production  | 生产环境                                              |
 | .env.test        | 测试环境                                              |
 
+### 1.3 已实现功能
+* 系统总览
+* 用户管理
+* 权限管理
+* 角色管理
+* 商品管理
+
+效果图
+![系统总览](https://wx1.sinaimg.cn/mw2000/005X2UDQly1gtt5bcrirrj32gw1kox15.jpg)
+![用户列表](https://wx1.sinaimg.cn/mw2000/005X2UDQly1gtt5bcrirrj32gw1kox15.jpg)
+
 ### 1.2.使用
 
 注意点：
