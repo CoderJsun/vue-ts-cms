@@ -30,7 +30,7 @@
 
 效果图
 
-![系统总览](https://wx1.sinaimg.cn/mw2000/005X2UDQly1gtt5bcrirrj32gw1kox15.jpg)
+![系统总览](https://wx1.sinaimg.cn/mw2000/005X2UDQly1gtt5jr7calj32y81iix4e.jpg)
 ![用户列表](https://wx1.sinaimg.cn/mw2000/005X2UDQly1gtt5bfxmj7j324g0s8qa2.jpg)
 
 ### 1.2.使用
